@@ -1,0 +1,35 @@
+
+.banner{
+    height: 600px;
+    width: 100%;
+}
+
+.banner img {
+    height: 600px;
+    width: 100%;
+}
+
+.new-arival{
+    height: 400px;
+    padding: 20px;
+    background-color: rgb(236, 240, 240);
+    border-radius:20px;
+}
+
+.new-arival button{
+    width: 250px;
+    border-radius: 0;
+}
+
+.new-arival-card img{
+    height: 250px;
+    width: 100%;
+}
+
+.card-title{
+    font-size: 18px;
+}
+
+.blog{
+    height: 600px;
+}
