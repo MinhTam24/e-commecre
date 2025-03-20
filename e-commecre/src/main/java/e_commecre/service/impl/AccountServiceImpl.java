@@ -39,30 +39,31 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public String login(LoginDto loginDto) {
-		try {
-			Authentication authentication = authenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
+	    try {
+	        Authentication authentication = authenticationManager
+	                .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 
-			if (authentication.isAuthenticated()) {
-				CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-				String token = jwtService.createToken(customUserDetails.getUsername(), customUserDetails.getUserId());
-				return token;
+	        if (authentication.isAuthenticated()) {
+	            CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+	            String token = jwtService.createToken(customUserDetails.getUsername(), customUserDetails.getUserId());
+	            return token;
 
-			} else {
-				System.out.println("Chưa đăng nhập");
-				return null;
-			}
-		} catch (BadCredentialsException e) {
-			throw new RuntimeException("An error occurred during login: " + e.getMessage());
-		}
+	        } else {
+	            return null;
+	        }
+	    } catch (BadCredentialsException e) {
+	        System.out.println("Invalid credentials: " + e.getMessage());
+	        throw new RuntimeException("Invalid credentials, please check your email and password");
+	    } catch (Exception e) {
+	        System.out.println("Error during login: " + e.getMessage());
+	        throw new RuntimeException("An error occurred during login: " + e.getMessage());
+	    }
 	}
 
 	@Override
 	public AccountDto getAccountByEmail(String email) throws AccountNotFoundException {
 		Account account = accountRepository.findAccountByEmail(email)
 				.orElseThrow(() -> new AccountNotFoundException("Account not found for email: " + email));
-		account.setPassword(passwordEncoder.encode(account.getPassword()));
-		accountRepository.save(account);
 		return contvertToAccountDto(account);
 	}
 

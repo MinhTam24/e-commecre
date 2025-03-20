@@ -2,12 +2,14 @@ package e_commecre.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale.Category;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -26,10 +28,17 @@ public class Categories {
 	
 	String name;
 	
+	@ManyToMany
+    @JoinTable(
+      name = "product_category", 
+      joinColumns = @JoinColumn(name = "category_id"), 
+      inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> product;
+	
+	
 	String description;
 	
-	@OneToMany(mappedBy = "category")
-	List<Product> product;
+	
 	
 	
 }

@@ -3,7 +3,11 @@ package e_commecre.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import e_commecre.ultil.OrderStatus;
+import e_commecre.ultil.PaymentStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +31,13 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
 	
+	
+	String shippingAddress;
+	
+	String shippingPhonenumber;
+	
+	String orderNote;
+	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	Account customerId;
@@ -38,6 +49,11 @@ public class Order {
 	
 	double totalAmount;
 	
-	String status;
+	@Enumerated(EnumType.STRING)  // Chỉ định lưu enum dưới dạng chuỗi
+	OrderStatus status;
+	
+
+	@Enumerated(EnumType.STRING)  
+	PaymentStatus paymentStatus;
 	
 }

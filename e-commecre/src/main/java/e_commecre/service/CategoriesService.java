@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import e_commecre.dto.CategoryDto;
 import e_commecre.dto.ProductDto;
 
 @Service
-public interface ProductService {
+public interface CategoriesService {
 	
 	List<ProductDto> getListProductByCategoryId(long id);
-	ProductDto getProductById(long id);
-	List<ProductDto> getSortedProduct(String[] sortingCriteria);
+	List<CategoryDto> getAll();
 	
 }

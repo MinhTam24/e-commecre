@@ -21,7 +21,6 @@ public class AccountDto {
 	long id;
 	String firstName;
 	String fullName;
-	String password;
 	String address;
 	String email;
 	String phoneNumber;

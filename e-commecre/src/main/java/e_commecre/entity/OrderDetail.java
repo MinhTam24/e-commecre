@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "oder_detail")
+@Table(name = "order_detail")
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDetail {
@@ -34,5 +34,9 @@ public class OrderDetail {
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	Order orderId;
+	
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Product product;
 	
 }
