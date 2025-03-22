@@ -5,6 +5,7 @@ import java.util.List;
 
 import e_commecre.ultil.OrderStatus;
 import e_commecre.ultil.PaymentStatus;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -44,6 +45,7 @@ public class Order {
 	@OneToMany(mappedBy = "orderId")
 	List<OrderDetail> orderDetails;
 	
+	@Column(nullable = false, updatable = false, insertable = false)
 	LocalDateTime orderDate;
 	
 	double totalAmount;

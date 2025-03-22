@@ -2,6 +2,7 @@ package e_commecre.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,5 +38,6 @@ public class Review {
 	
 	String comment;
 	
+	@Column(nullable = false, updatable = false, insertable = false)
 	LocalDateTime reviewDate;
 }

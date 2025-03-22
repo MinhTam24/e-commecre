@@ -3,6 +3,7 @@ package e_commecre.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +33,8 @@ public class Account {
 	String address;
 	String email;
 	String phoneNumber;
+	
+	@Column(nullable = false, updatable = false, insertable = false)
 	LocalDateTime createAt;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

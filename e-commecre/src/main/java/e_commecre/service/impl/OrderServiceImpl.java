@@ -21,6 +21,7 @@ import e_commecre.entity.Product;
 import e_commecre.entity.ProductDetail;
 import e_commecre.exception.ResouceNotFoundException;
 import e_commecre.repository.AccountRepository;
+import e_commecre.repository.OrderDetailRepository;
 import e_commecre.repository.OrderRepository;
 import e_commecre.repository.ProductDetailRepository;
 import e_commecre.repository.ProductRepository;
@@ -41,6 +42,9 @@ public class OrderServiceImpl implements OrderService {
     
     @Autowired
     ProductDetailRepository productRepository;
+    
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
     
     
 
@@ -94,13 +98,15 @@ public class OrderServiceImpl implements OrderService {
     	order.setPaymentStatus(PaymentStatus.fromString(orderDto.getPaymentStatus()));
     	order.setStatus(OrderStatus.fromString(orderDto.getStatus()));
     	
+    	Order orderSaved = orderRepository.save(order);
+    	
     	 List<OrderDetail> listOrderDetail = orderDto.getOrderDetailDtos().stream()
     	            .map(detailDto -> {
     	                ProductDetail productDetail = productRepository.findById(detailDto.getProductDetailDto().getId())
     	                		.orElseThrow(() -> new ResouceNotFoundException("Not Found ProductDetail With Id " + detailDto.getProductDetailDto().getId() ));
 
     	                OrderDetail orderDetail = new OrderDetail();
-    	                orderDetail.setOrderId(order);
+    	                orderDetail.setOrderId(orderSaved);
     	                orderDetail.setProductDetail(productDetail);
     	                orderDetail.setQuantity(detailDto.getQuantity());
     	                orderDetail.setTotalPrice(productDetail.getPrice() * detailDto.getQuantity());
@@ -118,12 +124,11 @@ public class OrderServiceImpl implements OrderService {
     	                
     	        }).toList();
     	 
-     	order.setTotalAmount(totalAmount.get());
+     	order.setTotalAmount(totalAmount.get());    	
 
-    	
-    	order.setOrderDetails(listOrderDetail);
-    	
-    	orderRepository.save(order);
+     	orderDetailRepository.saveAll(listOrderDetail);
+
+    	orderRepository.save(orderSaved);
     	
     	return orderDto;
     }

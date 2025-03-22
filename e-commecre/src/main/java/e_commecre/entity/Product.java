@@ -5,6 +5,7 @@ import java.util.List;
 
 import e_commecre.dto.ProductDto;
 import e_commecre.ultil.ConstUltil;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
 	
+	
 	String name;
 	
 	@OneToMany(mappedBy = "productId")
@@ -38,20 +40,12 @@ public class Product {
 	
 	@ManyToMany(mappedBy = "product")
 	private List<Categories> categories;
-		
+	
+	@Column(nullable = false, updatable = false, insertable = false)
 	LocalDateTime createAt;
 	
-	
-//	public static Product converToProduct(ProductDto productDtos) {
-//		Product product = new Product();
-//		product.setCreateAt(LocalDateTime.parse(productDtos.getCreateAt(), ConstUltil.DATE_TIME_FORMATTER));
-//		product.setName(productDtos.set);
-//		
-//		
-//	
-//		
-//		
-//		return null;
-//	}
+	 public int getTotalStock() {
+	        return productDetail.stream().mapToInt(ProductDetail::getStockQuantity).sum();
+	    }
 	
 }
