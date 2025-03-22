@@ -2,6 +2,7 @@ package e_commecre.entity;
 
 import java.util.List;
 
+import e_commecre.dto.OrderDetailDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +37,17 @@ public class OrderDetail {
 	Order orderId;
 	
 	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private Product product;
+	@JoinColumn(name = "product_detail_id")
+	private ProductDetail productDetail;
+	
+	
+//	public static OrderDetail ConvertOrderDetailDtoToOrderDtail(OrderDetailDto orderDetailDto) {
+//		OrderDetailDto.builder()
+//			.productDtos(null)
+//		
+//		
+//		
+//		return null;
+//	}
 	
 }

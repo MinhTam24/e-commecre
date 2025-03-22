@@ -31,7 +31,6 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
 	
-	
 	String shippingAddress;
 	
 	String shippingPhonenumber;
@@ -49,7 +48,7 @@ public class Order {
 	
 	double totalAmount;
 	
-	@Enumerated(EnumType.STRING)  // Chỉ định lưu enum dưới dạng chuỗi
+	@Enumerated(EnumType.STRING)  
 	OrderStatus status;
 	
 

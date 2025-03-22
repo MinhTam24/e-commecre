@@ -41,4 +41,7 @@ public class ProductDetail {
 	@JoinColumn(name = "product_id")
 	Product productId;
 	
+	@OneToMany(mappedBy = "productDetail")
+	List<OrderDetail> productDetail;
+	
 }

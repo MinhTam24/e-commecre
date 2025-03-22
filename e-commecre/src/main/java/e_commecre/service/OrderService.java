@@ -17,7 +17,7 @@ public interface OrderService {
     OrderDto createOrder(OrderDto orderDto);  // Tạo đơn hàng mới
     OrderDto updateOrder(long id, OrderDto orderDto);  // Cập nhật thông tin đơn hàng
     void deleteOrder(long id);  // Xóa đơn hàng
-    OrderDto updateOrderStatus(long id, boolean status);  // Thay đổi trạng thái đơn hàng
+    OrderDto updateOrderStatus(long id, String status);  // Thay đổi trạng thái đơn hàng
     Page<OrderDto> getOrderByDateRange(LocalDate startDate, LocalDate endDate, PageRequest pageRequest);  // Tìm theo khoảng thời gian với phân trang
     Page<OrderDto> getOrderByTotalPrice(double minPrice, double maxPrice, PageRequest pageRequest);  // Tìm theo giá trị đơn hàng với phân trang
     Page<OrderDto> getOrderByPaymentMethod(String paymentMethod, PageRequest pageRequest);  // Tìm theo phương thức thanh toán với phân trang

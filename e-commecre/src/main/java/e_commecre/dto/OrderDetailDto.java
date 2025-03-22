@@ -18,18 +18,21 @@ public class OrderDetailDto {
 	
 	int quantity;
 	
+	long orderId;
+	
 	double unitPrice;
 	
 	double totalPrice;
 	
-	ProductDto productDtos;
+	ProductDetailDto productDetailDto;
 	
 	public static OrderDetailDto convertToOrderDetailDto(OrderDetail orderDetail) {
 		OrderDetailDto orderDetailDto = new OrderDetailDto();
 		orderDetailDto.setId(orderDetail.getId());
+		orderDetailDto.setOrderId(orderDetail.getOrderId().getId());
 		orderDetailDto.setQuantity(orderDetail.getQuantity());
 		orderDetailDto.setUnitPrice(orderDetail.getUnitPrice());
-		orderDetailDto.setProductDtos(ProductDto.ConvertToProductDto(orderDetail.getProduct()));
+		orderDetailDto.setProductDetailDto(ProductDetailDto.convertToProductDetailDto(orderDetail.getProductDetail()));
 		return orderDetailDto;
 	}
 	

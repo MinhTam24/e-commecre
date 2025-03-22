@@ -3,6 +3,8 @@ package e_commecre.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import e_commecre.dto.ProductDto;
+import e_commecre.ultil.ConstUltil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,10 +38,20 @@ public class Product {
 	
 	@ManyToMany(mappedBy = "product")
 	private List<Categories> categories;
-	
-	@OneToMany(mappedBy = "product")
-	List<OrderDetail> orderDetails;
-	
+		
 	LocalDateTime createAt;
+	
+	
+//	public static Product converToProduct(ProductDto productDtos) {
+//		Product product = new Product();
+//		product.setCreateAt(LocalDateTime.parse(productDtos.getCreateAt(), ConstUltil.DATE_TIME_FORMATTER));
+//		product.setName(productDtos.set);
+//		
+//		
+//	
+//		
+//		
+//		return null;
+//	}
 	
 }
