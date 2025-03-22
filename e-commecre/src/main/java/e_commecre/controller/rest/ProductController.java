@@ -32,13 +32,8 @@ public class ProductController {
 
 	@GetMapping("/api/product/{id}")
 	public ResponseEntity<ProductDto> getProductById(@PathVariable("id") long id){
-		try {
 			ProductDto productDto =  productService.getProductById(id);
 			return ResponseEntity.ok(productDto);
-		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
-		}
-		
 	} 
 	
 	@GetMapping("/api/products")
@@ -62,12 +57,7 @@ public class ProductController {
 	
 	@PostMapping("/api/create/product")
 	public ResponseEntity<?> createProduct(@RequestBody ProductDto productDto){
-		try {
 			return ResponseEntity.ok(productService.createProduct(productDto));
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sever Error " + e);
-		}
-		
 	}
 	
 	@GetMapping("/api/category/{id}")
@@ -75,18 +65,11 @@ public class ProductController {
 			@PathVariable("id") long id,
 			 @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
 		     @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
-		try {
+		
 			PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
 			Page<ProductDto> pageProductDto = productService.getListProductByCategoryId(id, pageRequest);
-			if(!pageProductDto.hasContent()) {
-	            return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // 204 No Content
-			}
+			
 			return ResponseEntity.ok(pageProductDto);
-		} catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("SERVER ERROR: " + e);
-		}
-		
-		
 	}
 	
 }

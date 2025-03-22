@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e_commecre.dto.AccountDto;
 import e_commecre.dto.LoginDto;
+import e_commecre.dto.RegisterDto;
 import e_commecre.service.AccountService;
 
 @RestController
@@ -38,29 +39,26 @@ public class AccountController {
 	AccountRepository accountRepository;
 	
 	@GetMapping("/api/account/{email}")
-	public AccountDto getAccountByEmail(@PathVariable("email") String email) throws AccountNotFoundException {
-		return accountService.getAccountByEmail(email);
+	public ResponseEntity<?> getAccountByEmail(@PathVariable("email") String email) throws AccountNotFoundException {
+		return ResponseEntity.ok(accountService.getAccountByEmail(email));
 	}
 	
-	@GetMapping("/api/account/role/{email}")
-	public String getRoleAccount(@PathVariable("email") String email) throws AccountNotFoundException {
-		Optional<Account> accountDto = accountRepository.findAccountByEmail(email);
-		if(accountDto.isPresent()) {
-			return accountDto.get().getRoles().toString();
-		}
-		return null;
+	@GetMapping("/api/account/{phone}")
+	public ResponseEntity<?> getAccountByphone(@PathVariable("phone") String phone) throws AccountNotFoundException {
+		return ResponseEntity.ok(accountService.getAccountByPhoneNumber(phone));
 	}
+	
 	
 	@PostMapping("/api/login")
 	public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
-		try {
 			String token = accountService.login(loginDto);
 			return ResponseEntity.ok(Map.of("token", token));
-		}  catch (Exception e) {
-			System.out.println(e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body(Map.of("message", "An error occurred during login" + e.getMessage()));
-		}
+	}
+	
+	@PostMapping("/api/register")
+	public ResponseEntity<?> register(@RequestBody RegisterDto registerDto){
+			accountService.signUp(registerDto);
+	        return ResponseEntity.status(HttpStatus.CREATED).body("Đăng ký thành công!");
 	}
 	
 	

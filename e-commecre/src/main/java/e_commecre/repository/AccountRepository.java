@@ -10,5 +10,7 @@ import e_commecre.entity.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long>{
 		Optional<Account> findAccountByEmail(String email);
-		Optional<Account> findAccountByphoneNumber(String phone);
+		Optional<Account> findAccountByPhoneNumber(String phone);
+		boolean existsByEmail(String email);
+		boolean existsByPhoneNumber(String phone);
 }

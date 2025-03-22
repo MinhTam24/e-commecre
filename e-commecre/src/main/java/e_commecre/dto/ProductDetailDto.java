@@ -32,7 +32,7 @@ public class ProductDetailDto {
                 .price(productDetail.getPrice()) 
                 .size(productDetail.getSize())
                 .color(productDetail.getColor())
-                .product(productDetail.getProductId().getId()) 
+                .product(productDetail.getProductId().getId())
                 .build();
     }
 }

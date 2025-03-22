@@ -1,6 +1,9 @@
 package e_commecre.service.impl;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.security.auth.login.AccountNotFoundException;
 
@@ -14,8 +17,15 @@ import org.springframework.stereotype.Service;
 
 import e_commecre.dto.AccountDto;
 import e_commecre.dto.LoginDto;
+import e_commecre.dto.RegisterDto;
 import e_commecre.entity.Account;
+import e_commecre.entity.Role;
+import e_commecre.exception.AccountAlreadyExistsException;
+import e_commecre.exception.EmailAlreadyExistsException;
+import e_commecre.exception.PhoneNumberAlreadyExistsException;
+import e_commecre.exception.ResouceNotFoundException;
 import e_commecre.repository.AccountRepository;
+import e_commecre.repository.RoleRepository;
 import e_commecre.security.CustomUserDetailService;
 import e_commecre.security.CustomUserDetails;
 import e_commecre.security.jwtService;
@@ -33,6 +43,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	RoleRepository roleRepository;
 
 	@Autowired
 	jwtService jwtService;
@@ -69,8 +82,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public AccountDto getAccountByPhoneNumber(String phone) throws AccountNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Account account = accountRepository.findAccountByPhoneNumber(phone)
+				.orElseThrow(() -> new AccountNotFoundException("Account not found for phone: " + phone));
+		return contvertToAccountDto(account);
 	}
 
 	private AccountDto contvertToAccountDto(Account account) {
@@ -84,5 +98,32 @@ public class AccountServiceImpl implements AccountService {
 		accountDto.setCreateAt(account.getCreateAt().format(ConstUltil.DATE_TIME_FORMATTER));
 		return accountDto;
 	}
+
+	@Override
+	public void signUp(RegisterDto registerDto) {
+		
+	    if (accountRepository.existsByEmail(registerDto.getEmail())) {
+	        throw new EmailAlreadyExistsException("Email đã tồn tại: " + registerDto.getEmail());
+	    }
+	    if (accountRepository.existsByPhoneNumber(registerDto.getPhoneNumber())) {
+	        throw new PhoneNumberAlreadyExistsException("Số điện thoại đã tồn tại: " + registerDto.getPhoneNumber());
+	    }
+	    
+	    String encodedPassword = passwordEncoder.encode(registerDto.getPassword());
+
+	    Role role = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new ResouceNotFoundException("Not found role"));
+	    
+	    Account account = new Account();
+	    account.setEmail(registerDto.getEmail());
+	    account.setPhoneNumber(registerDto.getPhoneNumber());
+	    account.setAddress(registerDto.getAddress());
+	    account.setFirstName(registerDto.getFirstName());
+	    account.setFullName(registerDto.getFullName());
+	    account.setPassword(encodedPassword);
+	    account.setRoles(Collections.singletonList(role));
+
+	    accountRepository.saveAndFlush(account);
+	}
+
 
 }

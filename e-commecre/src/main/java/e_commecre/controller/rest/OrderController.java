@@ -20,11 +20,7 @@ public class OrderController {
 
     @GetMapping("/api/order/{id}")
     public ResponseEntity<OrderDto> getOrderById(@PathVariable("id") long id) {
-        try {
             return ResponseEntity.ok(orderService.getOrderById(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 
     @GetMapping("/orders")
