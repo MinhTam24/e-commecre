@@ -1,6 +1,7 @@
 package e_commecre.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,6 +23,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         return Map.of("error", "Dữ liệu không hợp lệ!");
+    }
+    
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleBadCredentialsException(MethodArgumentNotValidException ex) {
+        return Map.of("error", "Du lieu sai");
     }
     
     @ExceptionHandler(PhoneNumberAlreadyExistsException.class)

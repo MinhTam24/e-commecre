@@ -7,6 +7,9 @@ header{
 .logo{
     height: 100%;
 }
+
+
+
 .logo img{
     margin-left: 20px;
     margin-top:20px;
@@ -17,3 +20,36 @@ header .navbar .nav-item {
     font-size: 20px;
     padding-top: 5px;
 }
+
+.user-icon{
+    height: 100%;
+}
+
+.user-icon i {
+    margin: 30px 0px 33px 0px;
+}
+
+.login-dropdown{
+    width: 200px;
+    height: auto;
+    padding: 0;
+}
+
+
+.login-dropdown li {
+    text-align: center;
+    font-size: 20px;
+}
+
+.login-dropdown li a {
+    background-color: white;
+    font-weight: 600;
+    border-radius: 0%;
+    padding-left: 25px;
+    padding-bottom: 10px;
+}
+
+.login-dropdown li a:hover {
+  color: white;
+}
+

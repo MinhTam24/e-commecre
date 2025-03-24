@@ -3,6 +3,7 @@ package e_commecre.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +29,7 @@ public class Categories {
 	
 	String name;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
       name = "product_category", 
       joinColumns = @JoinColumn(name = "category_id"), 

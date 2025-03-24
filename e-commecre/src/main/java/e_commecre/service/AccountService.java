@@ -14,5 +14,6 @@ public interface AccountService {
 	String login(LoginDto loginDto);
 	AccountDto getAccountByEmail(String email) throws AccountNotFoundException ;
 	AccountDto getAccountByPhoneNumber(String phone) throws AccountNotFoundException ;
+	AccountDto getAccountByEmailOrPhoneNumber(String userName);
 	void signUp(RegisterDto registerDto);
 }

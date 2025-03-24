@@ -11,16 +11,16 @@ import lombok.Data;
 public class CustomUserDetails implements UserDetails {
 	
 	private long userId;
-	private String email;
+	private String userName;
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
 	
 
-	public CustomUserDetails(long userId, String email, String password,
+	public CustomUserDetails(long userId, String userName, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.userId = userId;
-		this.email = email;
+		this.userName = userName;
 		this.password = password;
 		this.authorities = authorities;
 	}
@@ -38,7 +38,7 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;
+		return userName;
 	}
 
 }

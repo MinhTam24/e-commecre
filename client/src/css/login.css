@@ -1,0 +1,52 @@
+
+.login-page{
+    background: #f3f4f6; /* Màu xám nhẹ */
+    height: calc(100vh - 100px);
+}
+
+.login-container {
+    width: 400px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 12px;
+    top: 72%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+
+.password-wrapper i:hover {
+    color: #333;
+}
+
+.form-control {
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #6c757d;
+    box-shadow: 0 0 5px rgba(108, 117, 125, 0.5);
+}
+
+.btn-primary {
+    background: #6c757d; /* Màu xám đậm hơn */
+    border: none;
+    transition: 0.3s;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background: #5a6268;
+}

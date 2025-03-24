@@ -12,5 +12,7 @@ public interface CategoriesService {
 	
 	List<ProductDto> getListProductByCategoryId(long id);
 	List<CategoryDto> getAll();
+	long createCategory(CategoryDto categoryDto);
+	void deleteCategory(long id);
 	
 }

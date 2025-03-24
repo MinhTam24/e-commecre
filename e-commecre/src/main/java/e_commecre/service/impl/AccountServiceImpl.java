@@ -54,7 +54,8 @@ public class AccountServiceImpl implements AccountService {
 	public String login(LoginDto loginDto) {
 	    try {
 	        Authentication authentication = authenticationManager
-	                .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
+	                .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUserName(), loginDto.getPassword()));
+	        System.out.println("Login request received: " + loginDto.getUserName() + " / " + loginDto.getPassword());
 
 	        if (authentication.isAuthenticated()) {
 	            CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
@@ -123,6 +124,13 @@ public class AccountServiceImpl implements AccountService {
 	    account.setRoles(Collections.singletonList(role));
 
 	    accountRepository.saveAndFlush(account);
+	}
+
+	@Override
+	public AccountDto getAccountByEmailOrPhoneNumber(String userName) {
+		Account account = accountRepository.findByEmailOrPhone(userName)
+				.orElseThrow(() -> new ResouceNotFoundException("NO found account with email or phone" + userName));
+		return contvertToAccountDto(account);
 	}
 
 

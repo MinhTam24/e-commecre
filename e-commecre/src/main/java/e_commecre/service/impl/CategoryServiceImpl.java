@@ -36,10 +36,38 @@ public class CategoryServiceImpl implements CategoriesService {
 		 return listProductDto;
 	}
 
+	
+
 	@Override
 	public List<CategoryDto> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Categories> categories = categoriesRepository.findAll();
+		if(!categories.isEmpty()) {
+			return	categories.stream().map(cate -> 
+			CategoryDto.builder()
+			.id(cate.getId())
+			.name(cate.getName())
+			.description(cate.getDescription())
+			.build()).toList();
+		}
+		throw new ResouceNotFoundException("Not found any Categories");
+	}
+
+
+
+	@Override
+	public long createCategory(CategoryDto categoryDto) {
+		Categories categories = new Categories();
+		categories.setDescription(categories.getDescription());
+		categories.setName(categories.getName());
+		return categoriesRepository.save(categories).getId();
+	}
+
+
+
+	@Override
+	public void deleteCategory(long id) {
+		Categories categories = categoriesRepository.findById(id).orElseThrow(() -> new ResouceNotFoundException("Not found categories with id: "+ id));
+		categoriesRepository.deleteById(id); 
 	}
 
 }

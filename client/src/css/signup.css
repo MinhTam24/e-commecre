@@ -1,0 +1,39 @@
+.signup-page {
+    background: #f3f4f6;
+    height: calc(100vh - 100px);
+}
+
+
+.register-container {
+    width: 500px; /* Làm form dài hơn */
+    padding: 25px; /* Giảm padding để form ngắn hơn */
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.password-wrapper {
+    position: relative;
+}
+.password-wrapper i {
+    position: absolute;
+    right: 12px;
+    top: 70%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+.password-wrapper i:hover {
+    color: #333;
+}
+.form-control {
+    border-radius: 8px;
+    padding: 8px; /* Giảm padding input để chiều cao ngắn hơn */
+}
+.btn-primary {
+    background: #6c757d;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+.btn-primary:hover {
+    background: #5a6268;
+}
