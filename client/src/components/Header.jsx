@@ -37,7 +37,7 @@ const Header = () => {
                         </nav>
                     </div>
                     <div className="user-icon d-flex justify-content-end col-3 gap-3">
-                        <i class="fa-solid fa-magnifying-glass" data-bs-toggle="offcanvas" data-bs-target="#SearchOffcanvas"></i>
+                    <i className="fa-solid fa-magnifying-glass" data-bs-toggle="offcanvas" data-bs-target="#SearchOffcanvas"></i>
                         <div className="dropdown">
                             <i className="fa-solid fa-user dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></i>
                             <ul className="dropdown-menu dropdown-menu-end login-dropdown">

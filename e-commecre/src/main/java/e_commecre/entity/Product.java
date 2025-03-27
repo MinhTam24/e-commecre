@@ -32,8 +32,10 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
 	
-	
 	String name;
+	
+	@Column(name ="description")
+	String description;
 	
 	@OneToMany(mappedBy = "productId")
 	List<ProductDetail> productDetail;
@@ -46,6 +48,6 @@ public class Product {
 	
 	 public int getTotalStock() {
 	        return productDetail.stream().mapToInt(ProductDetail::getStockQuantity).sum();
-	    }
+	 }
 	
 }

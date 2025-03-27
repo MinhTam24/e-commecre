@@ -10,10 +10,8 @@
 }
 
 .new-arival{
-    height: 400px;
     padding: 20px;
-    background-color: rgb(236, 240, 240);
-    border-radius:20px;
+    background: #f3f4f6; /* Màu xám nhẹ */
 }
 
 .new-arival button{
@@ -21,13 +19,8 @@
     border-radius: 0;
 }
 
-.new-arival-card img{
-    height: 250px;
-    width: 100%;
-}
-
-.card-title{
-    font-size: 18px;
+.new-arival-card{
+    width: 200px;
 }
 
 .blog{

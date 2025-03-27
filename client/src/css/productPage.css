@@ -1,0 +1,27 @@
+
+
+
+
+.filter-side-bar h2 button{
+    font-size: 20px;
+}
+
+
+.filter-side-bar  .dropdown-menu {
+    width: 100%;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.sort-filter button {  
+    width: 120px;
+    font-weight: 400;
+}
+
+
+.product-list{
+    background-color: white;
+}
+

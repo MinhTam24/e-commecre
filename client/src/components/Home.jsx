@@ -2,16 +2,20 @@ import { Link } from "react-router-dom";  // Đảm bảo bạn đã import Link
 import Header from "./Header";
 import Body from "./body";
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import Footer from "./Footer";
+import "../css/home.css"
 
 
 const Home = () => {
     return (
-        <>  
-            <Header></Header>
-            <Outlet/>
-        </>
+        <div className="home-container">
+            <Header />
+            <main className="content">
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
     );
-
 }
 
 export default Home;

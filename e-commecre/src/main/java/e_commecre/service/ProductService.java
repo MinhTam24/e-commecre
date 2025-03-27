@@ -3,6 +3,7 @@ package e_commecre.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +20,11 @@ public interface ProductService {
 
 	long createProduct(ProductDto productDto);
 
-	Page<ProductDto> filterProducts(String keyword, Long categoryId, Double minPrice, Double maxPrice,
-			LocalDate startDate, LocalDate endDate, String sortBy, String sortDirection, int page, int size);
+	Page<ProductDto> getAllProduct(Pageable pageable);
+
+	Page<ProductDto> filterProducts(String keyword, List<Long> categoryIdS, List<String> colors, List<String> sizes,
+			Double minPrice, Double maxPrice, String sortBy, String sortDirection, int page, int size);
+
+	Set<String> getAllColor();
 
 }

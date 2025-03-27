@@ -10,21 +10,23 @@ import Body from "./components/body";
 import Login from "./components/login";
 import Signup from "./components/Signup";
 import { AuthProvider } from "./context/AuthContext";
+import ProductDetail from "./components/ProductDetail";
 
 function App() {
   return (
     <div className="App">
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route path="/" element={<Body />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/collections" element={<Collections />} />
-            </Route>
-          </Routes>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route path="/" element={<Body />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/collections" element={<Collections />} />
+            <Route path="/product/:id/:detailId" element={<ProductDetail />} />
+          </Route>
+        </Routes>
     </div>
   );
 }

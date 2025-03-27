@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '../config.json';
 import queryString from 'query-string';
+import { useNavigate } from 'react-router-dom';
 
 
 const axiosClient = axios.create({
@@ -22,8 +23,14 @@ axiosClient.interceptors.request.use(
         
         return config;
     },
-    (error) => Promise.reject(error)
-
+    (error) => {
+        if (error.response && error.response.status === 403) {
+            localStorage.removeItem('token');
+            const navigate = useNavigate(); // Dùng useNavigate để điều hướng
+            navigate('/login'); // Chuyển về trang login
+        }
+        return Promise.reject(error);
+    }
 );
 
 
@@ -38,6 +45,8 @@ axiosClient.interceptors.response.use((response) => {
     // loi 401 token het han xoa token khoi localstorage
     if (response && response.status == 401) {
         localStorage.removeItem("token");
+        const navigate = useNavigate(); // Dùng useNavigate để điều hướng
+        navigate('/login'); // Chuyển về trang login
         return Promise.reject(error);
     }
 

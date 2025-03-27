@@ -35,10 +35,10 @@ const Body = () => {
                         <button className="mt-2 btn btn-outline-dark" type="button">Xem thêm</button>
                     </div>
                     <div className="row col-8 ms-2">
-                        <div className="row gap-3 new-arival-card">
-                            <ProductCard />
-                            <ProductCard />
-                            <ProductCard />
+                        <div className="d-flex new-arival-card">
+                                <ProductCard></ProductCard>
+                                <ProductCard></ProductCard>
+                                <ProductCard></ProductCard>
                         </div>
                     </div>
                 </div>
