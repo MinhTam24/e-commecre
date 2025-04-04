@@ -13,9 +13,7 @@ public class RegisterDto {
 	long id;
 	String firstName;
 	String fullName;
-	String address;
 	String password;
-	String email;
-	String phoneNumber;
+    String emailOrPhone;
 	String createAt;
 }

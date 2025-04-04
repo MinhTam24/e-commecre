@@ -15,6 +15,7 @@ import e_commecre.exception.ResouceNotFoundException;
 import e_commecre.repository.ProductDetailRepository;
 import e_commecre.repository.ProductRepository;
 import e_commecre.service.ProductDetailService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProductDetailServiceImpl implements ProductDetailService {
@@ -84,10 +85,11 @@ public class ProductDetailServiceImpl implements ProductDetailService {
 				.orElseThrow(() -> new ResouceNotFoundException("Not found product " + id + "And color" + color));
 		return ProductDetailDto.convertToProductDetailDto(productDetail);
 	}
-
+	
+    @Transactional
 	@Override
 	public ProductDetailDto getProductBySizeAndId(String size, long id) {
-//		ProductDetail productDetail = proDetailRepository.findBySizeAndProductIdId(size, id)
+//		ProductDetail productDetail = proDetailRepository.findSizeQuantitysByProductDetailId(id, size)
 //				.orElseThrow(() -> new ResouceNotFoundException("Not found product " + id + "And size" + size));
 //		return ProductDetailDto.convertToProductDetailDto(productDetail);
 		return null;

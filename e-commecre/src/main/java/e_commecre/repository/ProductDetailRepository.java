@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -22,5 +23,13 @@ public interface ProductDetailRepository
 	@Query("SELECT pds.quantity FROM ProductDetailSize pds JOIN pds.size s WHERE pds.productDetail.id = :productDetailId And s.name = :sizeName")
 	Optional<Integer> findSizeQuantitysByProductDetailId(@Param("productDetailId") Long productDetailId,
 			@Param("sizeName") String sizeName);
+	
+	
+	@Modifying
+	@Query("UPDATE ProductDetailSize pds SET pds.quantity = :quantity WHERE pds.productDetail.id = :productDetailId AND pds.size.name = :sizeName")
+	int updateQuantityByProductDetailIdAndSize(@Param("productDetailId") Long productDetailId, 
+	                                           @Param("sizeName") String sizeName, 
+	                                           @Param("quantity") int quantity);
+	
 
 }

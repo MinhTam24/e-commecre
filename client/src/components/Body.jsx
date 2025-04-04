@@ -46,11 +46,11 @@ const Body = () => {
             <div className="blog container-fluid mt-3">
                 <div className="row h-100">
                     <div className="col-7 h-100 p-0">
-                        <img className="w-100 h-100 " src="banner3.png" alt />
+                        <img className="w-100 h-100 " src="banner3.png" alt="..." />
                     </div>
                     <div className="col-5 h-100 p-0 ">
                         <div className="thumnail p-3 pt-0">
-                            <img style={{ width: '100%' }} src="banner2.png" alt />
+                            <img style={{ width: '100%' }} src="banner2.png" alt="..." />
                         </div>
                         <div className="sologan pt-5 ps-5">
                             <p className="m-0" style={{ fontSize: 30, fontWeight: 'bold' }}> DAZED WITH

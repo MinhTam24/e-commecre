@@ -7,6 +7,7 @@ getAllCategories: () => {
     return axiosClient.get("/api/category")    
 }
 
+
 }
 
 export default categoryAPi

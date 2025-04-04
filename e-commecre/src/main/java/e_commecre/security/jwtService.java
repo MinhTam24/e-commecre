@@ -16,10 +16,10 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class jwtService {
 	
-	public String createToken(String email, long userId) {
+	public String createToken(String userName, long userId) {
 		long now = System.currentTimeMillis();
 		String token = Jwts.builder()
-				.setSubject(email)
+				.setSubject(userName)
 				.claim("userId", userId)
 				.setIssuedAt(new Date(now))
 				.setExpiration(new Date(now + 1000 * 60 * 30))

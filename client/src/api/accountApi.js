@@ -8,7 +8,15 @@ const accountApi =  {
         } catch (error) {
           throw error;
         }
+      },
+
+    singUp: (registerDto) => {
+      try {
+        return axiosClient.post('/api/register', registerDto);
+      } catch (error) {
+        throw error;
       }
+    }
   
 }
 

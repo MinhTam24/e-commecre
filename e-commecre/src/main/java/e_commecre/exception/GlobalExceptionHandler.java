@@ -19,6 +19,12 @@ public class GlobalExceptionHandler {
         return createErrorResponse("Email đã tồn tại", ex.getMessage());
     }
     
+    @ExceptionHandler(InvalidEmailOrPhoneException.class)
+    @ResponseStatus(HttpStatus.CONFLICT) // 409 Conflict
+    public Map<String, String> handelInvalid(InvalidEmailOrPhoneException ex) {
+        return createErrorResponse("Nhập đúng định dạng email hoặc phone", ex.getMessage());
+    }
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

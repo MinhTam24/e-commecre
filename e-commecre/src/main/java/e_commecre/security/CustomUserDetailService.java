@@ -30,7 +30,7 @@ public class CustomUserDetailService implements UserDetailsService {
 			List<Role> roles = acc.getRoles();
 			List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 			roles.stream().forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role.getName())));
-			CustomUserDetails userDetails = new CustomUserDetails(acc.getId(), acc.getEmail(), acc.getPassword(), grantedAuthorities);
+			CustomUserDetails userDetails = new CustomUserDetails(acc.getId(), username, acc.getPassword(), grantedAuthorities);
 			return userDetails;
 		}else {
 			 throw new UsernameNotFoundException("Not found Account!");

@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,8 +32,13 @@ public class Account {
 	String fullName;
 	String password;
 	String address;
+	@Column(name = "email", nullable = true)
 	String email;
+	@Column(name = "phone_number", nullable = true)
 	String phoneNumber;
+	
+	@OneToOne(mappedBy = "account")
+	Cart cart;
 	
 	@Column(nullable = false, updatable = false, insertable = false)
 	LocalDateTime createAt;

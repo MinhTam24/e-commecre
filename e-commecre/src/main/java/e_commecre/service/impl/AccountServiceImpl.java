@@ -19,12 +19,15 @@ import e_commecre.dto.AccountDto;
 import e_commecre.dto.LoginDto;
 import e_commecre.dto.RegisterDto;
 import e_commecre.entity.Account;
+import e_commecre.entity.Cart;
 import e_commecre.entity.Role;
 import e_commecre.exception.AccountAlreadyExistsException;
 import e_commecre.exception.EmailAlreadyExistsException;
+import e_commecre.exception.InvalidEmailOrPhoneException;
 import e_commecre.exception.PhoneNumberAlreadyExistsException;
 import e_commecre.exception.ResouceNotFoundException;
 import e_commecre.repository.AccountRepository;
+import e_commecre.repository.CartRepository;
 import e_commecre.repository.RoleRepository;
 import e_commecre.security.CustomUserDetailService;
 import e_commecre.security.CustomUserDetails;
@@ -34,6 +37,9 @@ import e_commecre.ultil.ConstUltil;
 
 @Service
 public class AccountServiceImpl implements AccountService {
+	
+	@Autowired
+	CartRepository cartRepository;
 
 	@Autowired
 	AccountRepository accountRepository;
@@ -60,6 +66,7 @@ public class AccountServiceImpl implements AccountService {
 	        if (authentication.isAuthenticated()) {
 	            CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
 	            String token = jwtService.createToken(customUserDetails.getUsername(), customUserDetails.getUserId());
+	            
 	            return token;
 
 	        } else {
@@ -102,29 +109,43 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public void signUp(RegisterDto registerDto) {
-		
-	    if (accountRepository.existsByEmail(registerDto.getEmail())) {
-	        throw new EmailAlreadyExistsException("Email đã tồn tại: " + registerDto.getEmail());
+
+	    String emailOrPhone = registerDto.getEmailOrPhone();
+
+	    // Kiểm tra nếu là email
+	    if (emailOrPhone.contains("@")) {
+	        if (accountRepository.existsByEmail(emailOrPhone)) {
+	            throw new EmailAlreadyExistsException("Email đã tồn tại: " + emailOrPhone);
+	        }
+	    } else if (emailOrPhone.matches("\\d{10}")) { 
+	        if (accountRepository.existsByPhoneNumber(emailOrPhone)) {
+	            throw new PhoneNumberAlreadyExistsException("Số điện thoại đã tồn tại: " + emailOrPhone);
+	        }
+	    } else {
+	        throw new InvalidEmailOrPhoneException("Vui lòng nhập email hoặc số điện thoại hợp lệ.");
 	    }
-	    if (accountRepository.existsByPhoneNumber(registerDto.getPhoneNumber())) {
-	        throw new PhoneNumberAlreadyExistsException("Số điện thoại đã tồn tại: " + registerDto.getPhoneNumber());
-	    }
-	    
+
 	    String encodedPassword = passwordEncoder.encode(registerDto.getPassword());
 
 	    Role role = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new ResouceNotFoundException("Not found role"));
 	    
 	    Account account = new Account();
-	    account.setEmail(registerDto.getEmail());
-	    account.setPhoneNumber(registerDto.getPhoneNumber());
-	    account.setAddress(registerDto.getAddress());
+	    account.setEmail(emailOrPhone.contains("@") ? emailOrPhone : null);  // Nếu là email, gán email
+	    account.setPhoneNumber(emailOrPhone.matches("\\d{10}") ? emailOrPhone : null);  // Nếu là số điện thoại, gán số điện thoại
 	    account.setFirstName(registerDto.getFirstName());
 	    account.setFullName(registerDto.getFullName());
 	    account.setPassword(encodedPassword);
 	    account.setRoles(Collections.singletonList(role));
 
 	    accountRepository.saveAndFlush(account);
+	    
+	    // tạo sẳn 1 cart cho tài khoản đăng ký
+	    Cart cart = new Cart();
+	    cart.setAccount(account);
+	    cartRepository.save(cart);
+	    
 	}
+
 
 	@Override
 	public AccountDto getAccountByEmailOrPhoneNumber(String userName) {

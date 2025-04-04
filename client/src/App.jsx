@@ -13,6 +13,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ProductDetail from "./components/ProductDetail";
 
 function App() {
+  
   return (
     <div className="App">
         <Routes>

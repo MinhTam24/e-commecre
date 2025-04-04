@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import e_commecre.dto.ProductDetailDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,11 +36,10 @@ public class ProductDetail {
 	String description;
 
 	double price;
-	
-	
+
 	@OneToMany(mappedBy = "productDetail")
 	List<ProductDetailSize> productDetailSize;
-	
+
 	String color;
 
 	@ManyToOne
@@ -51,20 +51,23 @@ public class ProductDetail {
 
 	@OneToMany(mappedBy = "productDetail")
 	List<Image> images;
-	
-	
+
+	@OneToMany(mappedBy = "productDetail")
+	List<CartItems> listCartItems;
+
 	public int getStockQuantity() {
-		return 	this.getProductDetailSize().stream().mapToInt(quantitySize -> quantitySize.getQuantity()).sum();
+		return this.getProductDetailSize().stream().mapToInt(quantitySize -> quantitySize.getQuantity()).sum();
 
 	}
-	
-	
+
 	public Set<String> getSizes() {
-	    return this.productDetailSize.stream()
-	            .map(productDetailSize -> productDetailSize.getSize().getName()) // Lấy tên size từ `Size`
-	            .collect(Collectors.toSet()); // Chuyển thành Set để tránh trùng lặp
+		return this.productDetailSize.stream().map(productDetailSize -> productDetailSize.getSize().getName()) // Lấy
+																												// tên
+																												// size
+																												// từ
+																												// `Size`
+				.collect(Collectors.toSet()); // Chuyển thành Set để tránh trùng lặp
 	}
-	
 
 	public List<String> getImageUrl() {
 		List<Image> listImage = this.getImages();
@@ -78,4 +81,19 @@ public class ProductDetail {
 		return listImageUrl;
 
 	}
+
+	public static ProductDetailDto converToProductDetailDto(ProductDetail productDetail) {
+			
+		return	ProductDetailDto.builder()
+				.id(productDetail.getId())
+				.color(productDetail.getColor())
+				.description(productDetail.getDescription())
+				.price(productDetail.getPrice())
+				.stockQuantity(productDetail.getStockQuantity())
+				.imageUrl(productDetail.getImageUrl())
+				.size(productDetail.getSizes())
+				.product(productDetail.getProductId().getId())
+				.build();
+	}
+
 }
